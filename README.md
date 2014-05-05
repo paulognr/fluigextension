@@ -1,4 +1,4 @@
 fluigextension
 ==============
 
-Extensão do fluig para o chrome 1
+Extensão do fluig para o chrome

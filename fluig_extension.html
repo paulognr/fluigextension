@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Fluig extension</title>
+    
+    <style>
+      body {
+        min-width: 500px;
+        overflow-x: hidden;
+      }
+      
+      .fluig-content{
+      	width: 100%;
+      	min-height: 150px;
+      }
+      
+      .fluig-content label{
+      	display: block;
+      }
+      
+      #fluig-content-post{
+      	width: 99%;
+		height: 140px;
+		border-radius: 5px;
+      }
+      
+      .fluig-publish{
+      	width: 100%;
+      	text-align: right;
+      }
+    </style>
+    
+    <script src="fluig_extension.js"></script>
+  </head>
+  <body>
+  	<div>
+  		<div class="fluig-content">
+	  		<label for="fluig-content-post">Conteudo</label>
+	  		<textarea id="fluig-content-post" ></textarea>
+  		</div>
+  		<div class="fluig-publish">
+  			<input id="fluig_publish_button" type="button" value="Publicar"> </input>
+  		</div>
+  	</div>
+  </body>
+</html>
