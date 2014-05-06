@@ -4,12 +4,15 @@
   "name": "Fluig extension",
   "description": "This is a simple extension for the Fluig",
   "version": "1.0",
+  
+  "content_security_policy": "script-src 'self' https://apis.google.com; object-src 'self'",
 
   "permissions": [
-    "http://*/"
+    "http://*/",
+    "tabs"
   ],
   "browser_action": {
-    "default_icon": "fluig_extension.png",
-    "default_popup": "fluig_extension.html"
+    "default_icon": "img/fluig_extension.png",
+    "default_popup": "html/fluig_extension.html"
   }
 }
