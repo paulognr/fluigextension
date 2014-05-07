@@ -1,0 +1,99 @@
+html {
+	background-color: #EBEBEB;
+}
+
+body {
+	min-width: 500px;
+	min-height: 150px;
+	overflow-x: hidden;
+	margin: 0;
+	padding: 0;
+	font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+}
+
+.fluig-content {
+	width: 100%;
+	border-color: #ccc;
+	border-radius: 3px;
+	box-shadow: inset 0 1px 3px 0 rgba(0,0,0,.1);
+	border: 1px solid #abaeb5;
+	background-color: #fff;
+}
+
+#fluig_extensin_content{
+	margin: 15px;
+}
+
+#fluig_content_post {
+	width: 100%;
+	height: 140px;
+	box-sizing: border-box;
+	resize: none;
+	font-size: 16px;
+	line-height: 24px;
+	padding: 7px;
+	background: transparent;
+	border: 0;
+	outline: 0;
+	font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+}
+
+.fluig-publish {
+	width: 100%;
+	text-align: right;
+	margin: 15px 2px;
+	background-image: url('../img/logo_fluig.png');
+	background-position: center left;
+	background-repeat: no-repeat;
+	background-size: 60px;
+}
+
+#fluig_extension_login{
+	display: none;
+	background-image: url('../img/logo_fluig.png');
+	height: 150px;
+	background-repeat: no-repeat;
+	background-position: 80px center;
+}
+
+#fluig_extension_login_text{
+	position: relative;
+	left: 280px;
+	top: 50px;
+	width: 145px;
+	text-align: center;
+	font-weight: bold;
+}
+
+#fluig_publish_button{
+	background-color: #333;
+	background-image: url('../img/send.png');
+	background-repeat: no-repeat;
+	background-position: 8px;
+	border: 1px solid transparent;
+	color: #fff;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 14px;
+	line-height: 20px;
+	margin: 0;
+	min-width: 100px;
+	padding: 0.3571em 0.8571em;
+	padding-left: 25px;
+	text-align: center;
+	text-decoration: none;
+	vertical-align: middle;
+	border-radius: 4px;
+	transition: all linear 200ms;
+	
+}
+
+#fluig_publish_button:HOVER{
+	background-color: #000;
+}
+
+#airplane{
+	position: absolute;
+	top: 184px;
+	left: 396px;
+}
