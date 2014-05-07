@@ -24,13 +24,16 @@ var fluigExtension = {
 			self.updateProgress(50, 105, 1000);
 		});
 		
+		var jLogin = $('#fluig_extension_login');
+		var jExtension = $('#fluig_extensin_content');
 		if(self.isLogged() == true){
-			$('#fluig_extension_login').hide();
-			$('#fluig_extensin_content').show();
+			jLogin.hide();
+			jExtension.show();
 		}else{
-			$('#fluig_extensin_content').hide();
-			$('#fluig_extension_login').show();
+			$('html').css('background-color','#FFF');
 			$('#login_fluig').attr('href', self.serverUrl + '/portal');
+			jExtension.hide();
+			jLogin.show();
 		}
 		
 		var currentUrl = null;
