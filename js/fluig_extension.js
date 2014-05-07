@@ -1,13 +1,20 @@
 var fluigExtension = {
 	
 	serverUrl: "http://10.80.81.96:8080",
+	
 	jProgress: null,
-	jContent: null,
+	jContentPost: null,
+	jPublishButton: null,
+	
+	contentPost: "",
 	
 	init : function() {
 		var self = this;
 		self.jProgress = $('#progress');
-		self.jContent = $('#fluig_content_post');
+		self.jContentPost = $('#fluig_content_post');
+		self.jPublishButton = $('#fluig_publish_button');
+		
+		jQuery.urlShortener.settings.apiKey='AIzaSyD50283xRGCwMj3Qmk_qu19v5FyteAGZ-Q';
 		
 		$(document).ajaxStart(function() {
 			self.updateProgress(0, 50, 1000);
@@ -16,7 +23,6 @@ var fluigExtension = {
 		$(document).ajaxComplete(function(event,request, settings) {
 			self.updateProgress(50, 105, 1000);
 		});
-		
 		
 		if(self.isLogged() == true){
 			$('#fluig_extension_login').hide();
@@ -27,12 +33,8 @@ var fluigExtension = {
 			$('#login_fluig').attr('href', self.serverUrl + '/portal');
 		}
 		
-		jQuery.urlShortener.settings.apiKey='AIzaSyD50283xRGCwMj3Qmk_qu19v5FyteAGZ-Q';
-		
 		var currentUrl = null;
 		var currentTitle = null;
-		var contentPost = null;
-		
 		
 		chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
 			currentUrl = tabs[0].url;
@@ -41,15 +43,15 @@ var fluigExtension = {
 			jQuery.urlShortener({
 				longUrl: currentUrl,
 				success: function (shortUrl) {
-					contentPost = currentTitle + " " + shortUrl;
-					self.jContent.html(contentPost);
+					self.contentPost = currentTitle + " " + shortUrl;
+					self.jContentPost.val(self.contentPost);
 				}
 			});
 		});
 		
-		
-		$('#fluig_publish_button').click(function(){
-			self.jContent.attr('disabled','true');
+		self.jPublishButton.click(function(){
+			self.contentPost = self.jContentPost.val();
+			self.jContentPost.attr('disabled','true');
 			
 	    	$.ajax({
 				type: "POST",
@@ -57,7 +59,7 @@ var fluigExtension = {
 				url: self.serverUrl + "/api/public/social/post/create",
 				dataType: "json",
 				contentType: "application/json",
-				data: JSON.stringify({text: contentPost}),
+				data: JSON.stringify({text: self.contentPost}),
 				success: function(data){
 					self.postOk();
 				},
@@ -71,9 +73,9 @@ var fluigExtension = {
 	},
 	
 	postOk: function(){
-		var jPost = $('#fluig_publish_button');
-		jPost.css('padding-left', '0.8571em');
-		jPost.css('background-image', 'none');
+		var self = this;
+		self.jPublishButton.css('padding-left', '0.8571em');
+		self.jPublishButton.css('background-image', 'none');
 
 		$("#airplane").animate({
 			top : "-=250",
@@ -81,7 +83,6 @@ var fluigExtension = {
 		}, 1500, function() {
 			window.close();
 		});
-		
 	},
 	
 	isLogged: function(){
