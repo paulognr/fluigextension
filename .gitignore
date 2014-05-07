@@ -1,3 +1,4 @@
 *.project
 .settings/.jsdtscope
 .settings/
+dist/

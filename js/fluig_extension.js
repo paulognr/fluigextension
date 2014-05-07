@@ -102,7 +102,9 @@ var fluigExtension = {
 			url: self.serverUrl + "/api/public/social/user/current",
 			contentType: "application/json",
 			success: function(data){
-				logged = true;
+				if(data){
+					logged = true;
+				}
 			},
 			error: function(data){
 				console.log("invalid session");
