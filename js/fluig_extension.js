@@ -80,11 +80,14 @@ var fluigExtension = {
 	},
 	
 	postOk: function(){
+		var jAirplane = $('#airplane');
+		jAirplane.show();
+		
 		var self = this;
 		self.jPublishButton.css('padding-left', '0.8571em');
 		self.jPublishButton.css('background-image', 'none');
 
-		$("#airplane").animate({
+		jAirplane.animate({
 			top : "-=250",
 			left : "+=100"
 		}, 1500, function() {
