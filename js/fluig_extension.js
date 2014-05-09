@@ -1,6 +1,7 @@
 var fluigExtension = {
 	
-	serverUrl: "http://fluig.totvs.com",
+	serverUrl: null,
+	KEY_SERVER_URL: "fluigextension.serverurl",
 	
 	jProgress: null,
 	jContentPost: null,
@@ -10,18 +11,15 @@ var fluigExtension = {
 	
 	init : function() {
 		var self = this;
+		self.loadJqueryObjects();
+		self.loadAjaxSetup();
+		self.loadServerUrl();
 		
-		self.jProgress = $('#progress');
-		self.jContentPost = $('#fluig_content_post');
-		self.jPublishButton = $('#fluig_publish_button');
-		
-		$(document).ajaxStart(function() {
-			self.updateProgress(0, 50, 1000);
-		});
-		
-		$(document).ajaxComplete(function(event,request, settings) {
-			self.updateProgress(50, 105, 1000);
-		});
+		if(self.serverUrl){
+			
+		}else{
+			
+		}
 
 		var jExtension = $('#fluig_extensin_content');
 		var jLogin = $('#fluig_extension_login');
@@ -115,6 +113,37 @@ var fluigExtension = {
 		});
     	
     	return logged;
+	},
+	
+	setServerUrl: function(serverUrl){
+		var self = this;
+		self.serverUrl = serverUrl;
+		localStorage.setItem(self.KEY_SERVER_URL, serverUrl);
+	},
+	
+	loadServerUrl: function(){
+		var self = this;
+		self.serverUrl = localStorage.getItem(self.KEY_SERVER_URL);
+	},
+	
+	loadJqueryObjects: function(){
+		var self = this;
+		
+		self.jProgress = $('#progress');
+		self.jContentPost = $('#fluig_content_post');
+		self.jPublishButton = $('#fluig_publish_button');
+	},
+	
+	loadAjaxSetup: function(){
+		var self = this;
+		
+		$(document).ajaxStart(function() {
+			self.updateProgress(0, 50, 1000);
+		});
+		
+		$(document).ajaxComplete(function(event,request, settings) {
+			self.updateProgress(50, 105, 1000);
+		});
 	},
 	
 	updateProgress: function(startProgress, endProgress, durantion) {

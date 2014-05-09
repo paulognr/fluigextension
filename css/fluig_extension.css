@@ -11,6 +11,21 @@ body {
 	font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
 }
 
+#fluig_extension_top{
+	width: 100%;
+	height: 40px;
+	position: absolute;
+	background-color: #A6CE39;
+	background: linear-gradient(to top, #A6CE39, green 200%);
+}
+
+#fluig_extension_server_info{
+	color: #EEE;
+	font-size: 12px;
+	text-align: center;
+	padding: 10px;
+}
+
 .fluig-content {
 	width: 100%;
 	border-color: #ccc;
