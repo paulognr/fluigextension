@@ -2,31 +2,38 @@ var fluigExtension = {
 	
 	serverUrl: null,
 	KEY_SERVER_URL: "fluigextension.serverurl",
-	
+
+	jContentPost: null,	
 	jProgress: null,
-	jContentPost: null,
 	jPublishButton: null,
+	jStartLoad: null,
 	
 	contentPost: "",
 	
+	loadJsFiles: function(){
+		setTimeout(function(){
+			self.loadJsFile("../js/jquery-2.1.1.min.js", function(){
+				self.loadJQueryObjects();
+				self.loadJsFile("../js/jquery.urlshortener.min.js", function(){
+					self.init();
+				});
+			});
+		}, 1000);
+	},
+	
 	init : function() {
 		var self = this;
-		self.loadJqueryObjects();
-		self.loadAjaxSetup();
-		self.loadServerUrl();
+		self.loadJQueryObjects();
 		
-		if(self.serverUrl){
-			
-		}else{
-			
-		}
-
 		var jExtension = $('#fluig_extensin_content');
 		var jLogin = $('#fluig_extension_login');
 		
 		if(self.isLogged() == true){
 			jLogin.hide();
-			jExtension.show();
+			self.jStartLoad.fadeOut(function(){
+				$('html').css('background-color','#EBEBEB');
+				jExtension.show();
+			});
 			
 			var currentUrl = null;
 			var currentTitle = null;
@@ -73,7 +80,9 @@ var fluigExtension = {
 			$('html').css('background-color','#FFF');
 			$('#login_fluig').attr('href', self.serverUrl + '/portal');
 			jExtension.hide();
-			jLogin.show();
+			self.jStartLoad.fadeOut(function(){
+				jLogin.show();
+			});
 		}
 	},
 	
@@ -126,24 +135,21 @@ var fluigExtension = {
 		self.serverUrl = localStorage.getItem(self.KEY_SERVER_URL);
 	},
 	
-	loadJqueryObjects: function(){
+	loadJsFile: function(filename, callback){
+		var fileref=document.createElement('script');
+		fileref.setAttribute("type","text/javascript");
+		fileref.setAttribute("src", filename);
+		fileref.onload = callback;
+		document.getElementsByTagName("head")[0].appendChild(fileref);
+	},
+	
+	loadJQueryObjects: function(){
 		var self = this;
 		
+		self.jStartLoad = $('#fluig_extension_start_load');
 		self.jProgress = $('#progress');
 		self.jContentPost = $('#fluig_content_post');
 		self.jPublishButton = $('#fluig_publish_button');
-	},
-	
-	loadAjaxSetup: function(){
-		var self = this;
-		
-		$(document).ajaxStart(function() {
-			self.updateProgress(0, 50, 1000);
-		});
-		
-		$(document).ajaxComplete(function(event,request, settings) {
-			self.updateProgress(50, 105, 1000);
-		});
 	},
 	
 	updateProgress: function(startProgress, endProgress, durantion) {
@@ -162,5 +168,5 @@ var fluigExtension = {
 };
 
 document.addEventListener('DOMContentLoaded', function() {
-	fluigExtension.init();
+	fluigExtension.loadJsFiles();
 });
