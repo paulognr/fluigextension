@@ -1,34 +1,41 @@
 var fluigExtension = {
 	
 	serverUrl: "http://fluig.totvs.com",
-	
+
+	jContentPost: null,	
 	jProgress: null,
-	jContentPost: null,
 	jPublishButton: null,
+	jStartLoad: null,
 	
 	contentPost: "",
+	
+	loadJQuery: function(){
+		var self = this;
+		
+		setTimeout(function(){
+			self.loadJsFile("../js/jquery-2.1.1.min.js", function(){
+				self.loadJQueryObjects();
+				self.loadJsFile("../js/jquery.urlshortener.min.js", function(){
+					self.init();
+				});
+			});
+		}, 1000);
+		
+		return;
+	},
 	
 	init : function() {
 		var self = this;
 		
-		self.jProgress = $('#progress');
-		self.jContentPost = $('#fluig_content_post');
-		self.jPublishButton = $('#fluig_publish_button');
-		
-		$(document).ajaxStart(function() {
-			self.updateProgress(0, 50, 1000);
-		});
-		
-		$(document).ajaxComplete(function(event,request, settings) {
-			self.updateProgress(50, 105, 1000);
-		});
-
 		var jExtension = $('#fluig_extensin_content');
 		var jLogin = $('#fluig_extension_login');
 		
 		if(self.isLogged() == true){
 			jLogin.hide();
-			jExtension.show();
+			self.jStartLoad.fadeOut(function(){
+				$('html').css('background-color','#EBEBEB');
+				jExtension.show();
+			})
 			
 			var currentUrl = null;
 			var currentTitle = null;
@@ -75,7 +82,9 @@ var fluigExtension = {
 			$('html').css('background-color','#FFF');
 			$('#login_fluig').attr('href', self.serverUrl + '/portal');
 			jExtension.hide();
-			jLogin.show();
+			self.jStartLoad.fadeOut(function(){
+				jLogin.show();
+			});
 		}
 	},
 	
@@ -117,6 +126,23 @@ var fluigExtension = {
     	return logged;
 	},
 	
+	loadJsFile: function(filename, callback){
+		var fileref=document.createElement('script');
+		fileref.setAttribute("type","text/javascript");
+		fileref.setAttribute("src", filename);
+		fileref.onload = callback;
+		document.getElementsByTagName("head")[0].appendChild(fileref);
+	},
+	
+	loadJQueryObjects: function(){
+		var self = this;
+		
+		self.jStartLoad = $('#fluig_extension_start_load');
+		self.jProgress = $('#progress');
+		self.jContentPost = $('#fluig_content_post');
+		self.jPublishButton = $('#fluig_publish_button');
+	},
+	
 	updateProgress: function(startProgress, endProgress, durantion) {
 		var self = this;
 		$({property: startProgress}).animate({property: endProgress}, {
@@ -133,5 +159,5 @@ var fluigExtension = {
 };
 
 document.addEventListener('DOMContentLoaded', function() {
-	fluigExtension.init();
+	fluigExtension.loadJQuery();
 });

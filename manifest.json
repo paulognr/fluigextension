@@ -1,9 +1,11 @@
 {
+"update_url": "https://clients2.google.com/service/update2/crx",
+
   "manifest_version": 2,
 
   "name": "Fluig extension",
   "description": "Uma simples extensão para compartilhar informações de maneira fácil e ágil no Fluig",
-  "version": "1.0.0.3",
+  "version": "1.0.1",
   
   "content_security_policy": "script-src 'self' https://apis.google.com; object-src 'self'",
 
