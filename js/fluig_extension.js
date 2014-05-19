@@ -7,10 +7,12 @@ var fluigExtension = {
 	jProgress: null,
 	jPublishButton: null,
 	jStartLoad: null,
+	jTop: null,
 	
 	contentPost: "",
 	
 	loadJsFiles: function(){
+		var self = this;
 		setTimeout(function(){
 			self.loadJsFile("../js/jquery-2.1.1.min.js", function(){
 				self.loadJQueryObjects();
@@ -24,8 +26,11 @@ var fluigExtension = {
 	init : function() {
 		var self = this;
 		self.loadJQueryObjects();
+		self.loadJQueryEvents();
+		self.loadServerUrl();
+		self.loadTop();
 		
-		var jExtension = $('#fluig_extensin_content');
+		/*var jExtension = $('#fluig_extensin_content');
 		var jLogin = $('#fluig_extension_login');
 		
 		if(self.isLogged() == true){
@@ -83,7 +88,14 @@ var fluigExtension = {
 			self.jStartLoad.fadeOut(function(){
 				jLogin.show();
 			});
-		}
+		}*/
+	},
+	
+	loadTop: function(){
+		var self = this;
+		self.jStartLoad.fadeOut(function(){
+			self.jTop.show();
+		});
 	},
 	
 	postOk: function(){
@@ -150,6 +162,17 @@ var fluigExtension = {
 		self.jProgress = $('#progress');
 		self.jContentPost = $('#fluig_content_post');
 		self.jPublishButton = $('#fluig_publish_button');
+		self.jTop = $('#fluig_extension_top');
+	},
+	
+	loadJQueryEvents: function(){
+		$('#server_val').mouseover(function(){
+			$(this).find('span').css('opacity', '1');
+		});
+		
+		$('#server_val').mouseout(function(){
+			$(this).find('span').css('opacity', '0');
+		});
 	},
 	
 	updateProgress: function(startProgress, endProgress, durantion) {
