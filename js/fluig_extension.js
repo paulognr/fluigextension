@@ -30,6 +30,12 @@ var fluigExtension = {
 		self.loadServerUrl();
 		self.loadTop();
 		
+		if(self.serverUrl){
+			self.jTop.removeClass('full-height');
+		}else{
+			self.jTop.addClass('full-height');
+		}
+		
 		/*var jExtension = $('#fluig_extensin_content');
 		var jLogin = $('#fluig_extension_login');
 		
@@ -94,7 +100,7 @@ var fluigExtension = {
 	loadTop: function(){
 		var self = this;
 		self.jStartLoad.fadeOut(function(){
-			self.jTop.show();
+			self.jTop.fadeIn();
 		});
 	},
 	
@@ -166,12 +172,20 @@ var fluigExtension = {
 	},
 	
 	loadJQueryEvents: function(){
-		$('#server_val').mouseover(function(){
+		var jServerVal = $('#server_val');
+		jServerVal.mouseover(function(){
 			$(this).find('span').css('opacity', '1');
 		});
 		
-		$('#server_val').mouseout(function(){
+		jServerVal.mouseout(function(){
 			$(this).find('span').css('opacity', '0');
+		});
+		
+		var jServerValInput = $('#serval_val_input');
+		var jEditServer = $('#edit_server');
+		jEditServer.click(function(){
+			jServerVal.addClass('active');
+			jServerValInput.show();
 		});
 	},
 	

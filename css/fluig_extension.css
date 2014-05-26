@@ -8,10 +8,10 @@ body {
 }
 
 h1{
-	font-size: 24px;
+	font-size: 14px;
 	font-weight: normal;
 	line-height: 1.25;
-	color: #333333;
+	color: #EEE;
 }
 
 .editable-field:HOVER{
@@ -34,9 +34,26 @@ h1{
 	z-index: 1;
 }
 
+.editable-field.active {
+	border: 1px solid #cccccc;
+}
+
 #server_val {
 	margin-left: -5px;
 	padding: 2px 30px 2px 5px;
+	min-height: 16px;
+	min-height: 22px;
+	min-width: 150px;
+}
+
+#serval_val_input{
+	display: none;
+	background: transparent;
+	outline: none;
+	border: none;
+	color: #EEE;
+	margin-top: -1px;
+	font-size: 14px;
 }
 
 .ico{
@@ -56,7 +73,7 @@ h1{
 	opacity: 0;
 	background-color: #f0f0f0;
 	background-repeat: no-repeat;
-	background-position: 4px 4px;
+	background-position: 4px 2px;
 	border-left: 1px solid #cccccc;
 	bottom: 0;
 	height: auto;
@@ -73,6 +90,9 @@ h1{
 	cursor: pointer;
 }
 
+.full-height{
+	height: 200px !important;
+}
 
 #fluig_extension_top{
 	width: 100%;
@@ -80,15 +100,20 @@ h1{
 	position: absolute;
 	background-color: #A6CE39;
 	background: linear-gradient(to top, #A6CE39, green 200%);
+	transition: all linear 200ms;
 }
 
 #fluig_extension_server_info{
 	color: #EEE;
 	font-size: 12px;
 	text-align: center;
-	padding-top: 10px;
-	height: 40px;
-	width: 100%;
+}
+
+#fluig_extension_server_info label{
+	position: relative;
+	top: 12px;
+	margin-right: 7px;
+	font-size: 14px;
 }
 
 #fluig_extension_start_load{
