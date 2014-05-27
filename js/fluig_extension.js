@@ -3,7 +3,8 @@ var fluigExtension = {
 	serverUrl: null,
 	KEY_SERVER_URL: "fluigextension.serverurl",
 
-	jContentPost: null,	
+	jContentPost: null,
+	jEditServer: null,
 	jProgress: null,
 	jPublishButton: null,
 	jStartLoad: null,
@@ -34,6 +35,7 @@ var fluigExtension = {
 			self.jTop.removeClass('full-height');
 		}else{
 			self.jTop.addClass('full-height');
+			self.jEditServer.click();
 		}
 		
 		/*var jExtension = $('#fluig_extensin_content');
@@ -164,28 +166,39 @@ var fluigExtension = {
 	loadJQueryObjects: function(){
 		var self = this;
 		
-		self.jStartLoad = $('#fluig_extension_start_load');
-		self.jProgress = $('#progress');
 		self.jContentPost = $('#fluig_content_post');
+		self.jEditServer = $('#edit_server');
+		self.jProgress = $('#progress');
 		self.jPublishButton = $('#fluig_publish_button');
+		self.jStartLoad = $('#fluig_extension_start_load');
 		self.jTop = $('#fluig_extension_top');
 	},
 	
 	loadJQueryEvents: function(){
+		var self = this;
 		var jServerVal = $('#server_val');
 		jServerVal.mouseover(function(){
-			$(this).find('span').css('opacity', '1');
+			if($(this).hasClass('inactive')){
+				$(this).find('span').show();
+			}
 		});
 		
 		jServerVal.mouseout(function(){
-			$(this).find('span').css('opacity', '0');
+			if($(this).hasClass('inactive')){
+				$(this).find('span').hide();
+			}
 		});
 		
 		var jServerValInput = $('#serval_val_input');
-		var jEditServer = $('#edit_server');
-		jEditServer.click(function(){
-			jServerVal.addClass('active');
-			jServerValInput.show();
+		self.jEditServer.click(function(){
+			if(jServerVal.hasClass('inactive')){
+				jServerVal.removeClass('inactive');
+				jServerVal.addClass('active');
+			} else {
+				jServerVal.removeClass('active');
+				jServerVal.addClass('inactive');
+			}
+			jServerValInput.show().focus();
 		});
 	},
 	

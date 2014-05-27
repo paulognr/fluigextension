@@ -70,7 +70,6 @@ h1{
 
 .overlay-ico{
 	box-sizing: border-box;
-	opacity: 0;
 	background-color: #f0f0f0;
 	background-repeat: no-repeat;
 	background-position: 4px 2px;
@@ -83,6 +82,7 @@ h1{
 	top: 0;
 	width: 24px;
 	z-index: -1;
+	display: none;
 }
 
 .icon-edit-sml {
