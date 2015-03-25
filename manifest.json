@@ -5,7 +5,7 @@
 
   "name": "Fluig extension",
   "description": "Uma simples extensão para compartilhar informações de maneira fácil e ágil no Fluig",
-  "version": "1.0.1",
+  "version": "1.0.2",
   
   "content_security_policy": "script-src 'self' https://apis.google.com; object-src 'self'",
 
