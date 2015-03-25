@@ -29,9 +29,12 @@ var fluigExtension = {
 		self.loadJQueryObjects();
 		self.loadJQueryEvents();
 		self.loadServerUrl();
-		self.loadTop();
 
-		var jExtension = $('#fluig_extensin_content');
+		self.verifyServer();
+	},
+
+	initContent: function(){
+		/*var jExtension = $('#fluig_extensin_content');
 		var jLogin = $('#fluig_extension_login');
 
 		if(self.isLogged() == true){
@@ -89,10 +92,10 @@ var fluigExtension = {
 			self.jStartLoad.fadeOut(function(){
 				jLogin.show();
 			});
-		}
+		}*/
 	},
 
-	loadTop: function(){
+	verifyServer: function(){
 		var self = this;
 		self.jStartLoad.fadeOut(function(){
 			self.jStartLoad.remove();
@@ -146,9 +149,58 @@ var fluigExtension = {
     	return logged;
 	},
 
+	testConnectionFluigServer: function(url, successCallback, errorCallback){
+		var self = this;
+		self.updateProgress(0,50,500);
+
+		try {
+			$.ajax({
+				type: "GET",
+				async: true,
+				url: url + "/api/public/social/user/current",
+				timeout: 1000,
+				contentType: "application/json",
+				success: function(data){
+					self.updateProgress(50,105,500);
+					successCallback();
+				},
+				error: function(data){
+					self.updateProgress(50,105,500);
+					if (data.status === 500) {
+						successCallback();
+					} else {
+						errorCallback();
+					}
+				}
+			});
+		} catch (e) {
+			self.updateProgress(50,105,500);
+			errorCallback();
+		}
+	},
+
+	getUrl: function(){
+		var url = $('#serval_val_input').val().trim();
+		if(url.length > 0 && (url.indexOf('http://') === -1 || url.indexOf('https://') === -1)){
+			url = 'http://' + url;
+		}
+		return url;
+	},
+
 	saveServerUrl: function(){
-		var jServerValInput = $('#serval_val_input');
-		this.setServerUrl(jServerValInput.val());
+		var self = this;
+		var jServerValBox = $('#server_val');
+		jServerValBox.removeClass('border-error');
+		var url = self.getUrl();
+
+		self.testConnectionFluigServer(self.getUrl(),
+				function(){
+					self.setServerUrl(url);
+					self.verifyServer();
+				},
+				function(){
+					jServerValBox.addClass('border-error');
+				});
 	},
 
 	setServerUrl: function(serverUrl){
@@ -205,10 +257,11 @@ var fluigExtension = {
 				jServerVal.removeClass('active');
 				jServerVal.addClass('inactive');
 			}
-			jServerValInput.show().focus();
+			jServerValInput.focus();
 		});
 
 		jServerValInput.on('keyup', function(event){
+			$('#server_val').removeClass('border-error');
 			if (event.which == 13) {
 				self.saveServerUrl();
 			}
@@ -221,6 +274,9 @@ var fluigExtension = {
 
 	updateProgress: function(startProgress, endProgress, durantion) {
 		var self = this;
+		if(startProgress === 0){
+			self.jProgress.removeClass("done");
+		}
 		$({property: startProgress}).animate({property: endProgress}, {
 		    duration: durantion,
 		    step: function() {
@@ -228,6 +284,9 @@ var fluigExtension = {
 		        self.jProgress.css('width', percent + "%");
 		        if(percent == 105) {
 		        	self.jProgress.addClass("done");
+		        	setTimeout(function(){
+		        		self.jProgress.css('width', 0 + "%");
+		        	}, 500);
 		        }
 		    },
 		});

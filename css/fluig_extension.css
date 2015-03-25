@@ -39,16 +39,13 @@ h1{
 }
 
 .editable-field .save-options {
-	background-color: #f0f0f0;
-	border: 1px solid #cccccc;
-	border-top: none;
-	border-radius: 0 0 3px 3px;
-	box-shadow: 0 3px 6px rgba(111, 111, 111, 0.2);
+	background-color: transparent;
+	border: transparent;
 	outline: none;
 	padding: 3px;
 	position: absolute;
-	right: 0;
-	top: 100%;
+	top: -2px;
+	right: -32px;
 	z-index: 1;
 }
 
@@ -94,21 +91,40 @@ h1{
 }
 
 #server_val {
-	margin-left: -5px;
-	padding: 2px 30px 2px 5px;
-	min-height: 16px;
+	margin-left: -45px;
+	padding: 2px 5px;
 	min-height: 22px;
-	min-width: 150px;
+	min-width: 190px;
+}
+
+.border-error{
+	border-color: #DE2660 !important;
+}
+
+input ~ span:after {
+	content: attr(title);
+	color: red;
+	margin-left: 0.6rem;
+	opacity: 0;
+	transition: opacity 300ms;
+	position: absolute;
+	width: 191px;
+	right: 0;
+	padding-top: 2px;
+}
+
+.border-error #serval_val_input ~ span:after {
+	opacity: 1;
 }
 
 #serval_val_input{
-	display: none;
 	background: transparent;
 	outline: none;
 	border: none;
 	color: #AAA;
 	margin-top: -1px;
 	font-size: 14px;
+	display: block;
 }
 
 .ico{
@@ -167,7 +183,7 @@ h1{
 #fluig_extension_server_info label{
 	position: relative;
 	top: 12px;
-	margin-right: 7px;
+	left: -47px;
 	font-size: 14px;
 }
 
