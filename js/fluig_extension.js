@@ -111,12 +111,10 @@ var fluigExtension = {
 		$.ajax({
 			type: "GET",
 			async: false,
-			url: self.serverUrl + "/api/public/social/user/current",
+			url: self.serverUrl + "/api/public/social/user/logged",
 			contentType: "application/json",
 			success: function(data){
-				if(!data){
-					logged = true;
-				}
+				logged = data instanceof Object;
 			},
 			error: function(data){
 				console.log("invalid session");
